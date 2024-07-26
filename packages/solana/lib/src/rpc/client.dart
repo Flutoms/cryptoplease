@@ -17,8 +17,16 @@ abstract class RpcClient {
   factory RpcClient(
     String url, {
     Duration timeout = const Duration(seconds: 30),
+    Map<String, String> customHeaders = const {},
   }) =>
-      _RpcClient(url, JsonRpcClient(url, timeout: timeout));
+      _RpcClient(
+        url,
+        JsonRpcClient(
+          url,
+          timeout: timeout,
+          customHeaders: customHeaders,
+        ),
+      );
 
   abstract final JsonRpcClient _jsonRpcClient;
 
@@ -194,6 +202,7 @@ abstract class RpcClient {
   /// [see this document]: https://docs.solana.com/developing/clients/jsonrpc-api#configuring-state-commitment
   ///
   /// [minContextSlot] Set the minimum slot that the request can be evaluated at.
+  @WithContextResult()
   Future<int?> getFeeForMessage(
     String message, {
     Commitment? commitment,

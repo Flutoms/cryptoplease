@@ -6,10 +6,10 @@ import 'colors.dart';
 
 class CpTheme extends StatelessWidget {
   const CpTheme({
-    Key? key,
+    super.key,
     required this.theme,
     required this.child,
-  }) : super(key: key);
+  });
 
   const CpTheme.light({Key? key, required Widget child})
       : this(
@@ -22,6 +22,13 @@ class CpTheme extends StatelessWidget {
       : this(
           key: key,
           theme: const CpThemeData.dark(),
+          child: child,
+        );
+
+  const CpTheme.black({Key? key, required Widget child})
+      : this(
+          key: key,
+          theme: const CpThemeData.black(),
           child: child,
         );
 
@@ -70,6 +77,15 @@ class CpThemeData {
           dividerColor: Colors.white,
         );
 
+  const CpThemeData.black()
+      : this._(
+          brightness: Brightness.dark,
+          backgroundColor: CpColors.darkSplashBackgroundColor,
+          primaryTextColor: Colors.white,
+          secondaryTextColor: CpColors.secondaryTextColor,
+          dividerColor: Colors.white,
+        );
+
   final Color backgroundColor;
   final Color primaryTextColor;
   final Color secondaryTextColor;
@@ -84,6 +100,7 @@ class CpThemeData {
 
   ThemeData toMaterialTheme() => ThemeData(
         brightness: brightness,
+        useMaterial3: false,
         splashColor: CpColors.yellowColor.withOpacity(0.25),
         fontFamily: 'RobotoApp',
         textTheme: TextTheme(
@@ -124,7 +141,7 @@ class CpThemeData {
           brightness: brightness,
           primary: CpColors.primaryColor,
           secondary: CpColors.primaryColor,
-          background: backgroundColor,
+          surface: backgroundColor,
         ),
         appBarTheme: AppBarTheme(
           systemOverlayStyle: brightness.systemOverlayStyle,
@@ -165,8 +182,8 @@ const twelveWordsTextStyle = TextStyle(
 
 const dashboardSectionTitleTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
-  fontSize: 19,
-  color: CpColors.menuPrimaryTextColor,
+  fontSize: 17,
+  color: Colors.white,
 );
 
 extension on Brightness {

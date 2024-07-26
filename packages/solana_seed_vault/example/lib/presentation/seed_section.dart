@@ -6,28 +6,28 @@ import 'package:wallet_example/bl/bloc.dart';
 import 'package:wallet_example/presentation/snack_bar.dart';
 
 class SeedSection extends StatefulWidget {
-  const SeedSection({Key? key}) : super(key: key);
+  const SeedSection({super.key});
 
   @override
   State<SeedSection> createState() => _SeedSectionState();
 }
 
 class _SeedSectionState extends State<SeedSection> {
-  void _onAuthorizeSeed() {
+  void _handleAuthorizeSeed() {
     context
         .read<SeedVaultBloc>()
         .authorizeSeed()
         .then((it) => showSnackBar(context, it.map(always('Seed authorized'))));
   }
 
-  void _onCreateSeed() {
+  void _handleCreateSeed() {
     context
         .read<SeedVaultBloc>()
         .createSeed()
         .then((it) => showSnackBar(context, it.map(always('Seed created'))));
   }
 
-  void _onImportSeed() {
+  void _handleImportSeed() {
     context
         .read<SeedVaultBloc>()
         .importSeed()
@@ -50,7 +50,7 @@ class _SeedSectionState extends State<SeedSection> {
                     style: _style,
                   ),
                   trailing: IconButton(
-                    onPressed: _onAuthorizeSeed,
+                    onPressed: _handleAuthorizeSeed,
                     icon: const Icon(Icons.add, color: Colors.green),
                   ),
                 )
@@ -62,7 +62,7 @@ class _SeedSectionState extends State<SeedSection> {
               ListTile(
                 title: const Text('Create a new seed', style: _style),
                 trailing: IconButton(
-                  onPressed: _onCreateSeed,
+                  onPressed: _handleCreateSeed,
                   icon: const Icon(Icons.add, color: Colors.green),
                 ),
               ),
@@ -70,7 +70,7 @@ class _SeedSectionState extends State<SeedSection> {
               ListTile(
                 title: const Text('Import an existing seed', style: _style),
                 trailing: IconButton(
-                  onPressed: _onImportSeed,
+                  onPressed: _handleImportSeed,
                   icon: const Icon(Icons.add, color: Colors.green),
                 ),
               ),

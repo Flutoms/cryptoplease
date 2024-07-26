@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-enum CpTextButtonVariant { light, dark, inverted }
+enum CpTextButtonVariant { light, dark, inverted, grey }
 
 class CpTextButton extends StatelessWidget {
   const CpTextButton({
-    Key? key,
+    super.key,
     required this.text,
     this.onPressed,
     this.variant = CpTextButtonVariant.dark,
-  }) : super(key: key);
+  });
 
   final String text;
   final VoidCallback? onPressed;
@@ -22,20 +22,26 @@ class CpTextButton extends StatelessWidget {
         return Colors.white;
       case CpTextButtonVariant.inverted:
         return Colors.black;
-      default:
+      case CpTextButtonVariant.light:
         return CpColors.primaryColor;
+      case CpTextButtonVariant.grey:
+        return const Color(0xff757575);
     }
   }
 
   @override
   Widget build(BuildContext context) => GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: onPressed,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-            color: _foregroundColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: _foregroundColor,
+            ),
           ),
         ),
       );

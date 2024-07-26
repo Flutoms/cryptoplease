@@ -5,12 +5,12 @@ import '../../gen/assets.gen.dart';
 
 class DecoratedWindowHeader extends StatelessWidget {
   const DecoratedWindowHeader({
-    Key? key,
+    super.key,
     this.title,
     this.message,
     this.hasLogo = true,
     this.markdownMessage = false,
-  }) : super(key: key);
+  });
 
   final String? title;
   final String? message;
@@ -25,15 +25,14 @@ class DecoratedWindowHeader extends StatelessWidget {
     final message = this.message;
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        if (hasLogo)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: Assets.images.logoIcon.image(height: 96),
-          ),
+        if (hasLogo) Assets.images.lockScreen.svg(fit: BoxFit.fitHeight),
         if (title != null)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
             child: Text(
               title,
               textAlign: TextAlign.center,

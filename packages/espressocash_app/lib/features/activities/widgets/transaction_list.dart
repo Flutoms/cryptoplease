@@ -1,21 +1,22 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart' hide Notification;
-import 'package:provider/provider.dart';
 
 import '../../../di.dart';
-import '../../../ui/loader.dart';
-import '../src/transaction_repository.dart';
-import '../src/updater/bloc.dart';
-import '../src/widgets/no_activity.dart';
-import '../src/widgets/transaction_item.dart';
+import '../../../ui/colors.dart';
+import '../data/transaction_repository.dart';
+import '../services/tx_updater.dart';
+import 'no_activity.dart';
+import 'transaction_item.dart';
 
 class TransactionList extends StatefulWidget {
   const TransactionList({
-    Key? key,
+    super.key,
     this.padding,
-  }) : super(key: key);
+    required this.onSendMoneyPressed,
+  });
 
   final EdgeInsetsGeometry? padding;
+  final VoidCallback onSendMoneyPressed;
 
   @override
   State<TransactionList> createState() => _TransactionListState();
@@ -28,13 +29,14 @@ class _TransactionListState extends State<TransactionList> {
   void initState() {
     super.initState();
     _txs = sl<TransactionRepository>().watchAll();
-
-    context.read<TxUpdaterBloc>().add(const TxUpdaterEvent.fetch());
+    sl<TxUpdater>().call();
   }
 
   @override
   Widget build(BuildContext context) => RefreshIndicator(
-        onRefresh: () => context.read<TxUpdaterBloc>().update(),
+        onRefresh: () => sl<TxUpdater>().call(),
+        color: CpColors.primaryColor,
+        backgroundColor: Colors.white,
         child: StreamBuilder<IList<String>>(
           stream: _txs,
           builder: (context, snapshot) {
@@ -42,34 +44,33 @@ class _TransactionListState extends State<TransactionList> {
 
             if (data == null) return const SizedBox.shrink();
 
-            final isLoading = context.select<TxUpdaterBloc, bool>(
-              (value) => value.state.isProcessing,
-            );
+            return data.isEmpty
+                ? Center(
+                    child: NoActivity(
+                      onSendMoneyPressed: widget.onSendMoneyPressed,
+                    ),
+                  )
+                : ListView.custom(
+                    physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics(),
+                    ),
+                    padding: widget.padding,
+                    childrenDelegate: SliverChildBuilderDelegate(
+                      (context, i) => _KeepAlive(
+                        key: ValueKey(data[i]),
+                        child: TransactionItem(tx: data[i]),
+                      ),
+                      childCount: data.length,
+                      findChildIndexCallback: (Key key) {
+                        final ValueKey<String> valueKey =
+                            key as ValueKey<String>;
+                        final String keyValue = valueKey.value;
+                        final index = data.indexOf(keyValue);
 
-            if (data.isEmpty) {
-              return Center(
-                child:
-                    isLoading ? const LoadingIndicator() : const NoActivity(),
-              );
-            }
-
-            return ListView.custom(
-              padding: widget.padding,
-              childrenDelegate: SliverChildBuilderDelegate(
-                (context, i) => _KeepAlive(
-                  key: ValueKey(data[i]),
-                  child: TransactionItem(tx: data[i]),
-                ),
-                childCount: data.length,
-                findChildIndexCallback: (Key key) {
-                  final ValueKey<String> valueKey = key as ValueKey<String>;
-                  final String keyValue = valueKey.value;
-                  final index = data.indexOf(keyValue);
-
-                  return index == -1 ? null : index;
-                },
-              ),
-            );
+                        return index == -1 ? null : index;
+                      },
+                    ),
+                  );
           },
         ),
       );

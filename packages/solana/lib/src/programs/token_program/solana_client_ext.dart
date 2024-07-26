@@ -1,3 +1,5 @@
+// ignore_for_file: cast_nullable_to_non_nullable
+
 import 'dart:typed_data';
 
 import 'package:solana/dto.dart';
@@ -57,6 +59,7 @@ extension SolanaClientTokenProgram on SolanaClient {
     required int decimals,
     Ed25519HDPublicKey? freezeAuthority,
     SignatureCallback? onSigned,
+    TokenProgramType tokenProgramType = TokenProgramType.tokenProgram,
     Commitment commitment = Commitment.finalized,
   }) async {
     final mint = await Ed25519HDKeyPair.random();
@@ -74,6 +77,7 @@ extension SolanaClientTokenProgram on SolanaClient {
       rent: rent,
       space: space,
       decimals: decimals,
+      tokenProgram: tokenProgramType,
     );
 
     final message = Message(instructions: instructions);
@@ -96,7 +100,7 @@ extension SolanaClientTokenProgram on SolanaClient {
     required Ed25519HDKeyPair authority,
     SignatureCallback? onSigned,
     Commitment commitment = Commitment.finalized,
-  }) async {
+  }) {
     final instruction = TokenInstruction.mintTo(
       mint: mint,
       destination: destination,

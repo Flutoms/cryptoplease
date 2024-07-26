@@ -1,3 +1,548 @@
+## 1.122.1
+
+ - **FIX**: durable tx signing.
+
+## 1.122.0
+
+ - **FIX**: home spacing (#1489).
+ - **FEAT**: use durable nonce for escrow txs (#1459).
+ - **FEAT**: integrate stellar wallet (#1497).
+ - **FEAT**: new lock screen theme  (#1494).
+
+## 1.121.1
+
+ - **FIX**: do not wait for intercom login (#1493).
+ - **FIX**: profile spacing colors (#1490).
+ - **FIX**: sol conversion matching (#1491).
+
+## 1.121.0
+
+ - **REFACTOR**: balances module (#1476).
+ - **FIX**: main screen flow (#1487).
+ - **FIX**: ignore usdc token on crypto portfolio (#1478).
+ - **FIX**: activity tile text color to white (#1477).
+ - **FEAT**: log total crypto balance (#1488).
+ - **FEAT**: sort crypto portfolio list (#1480).
+ - **FEAT**: home & payment improved buttons (#1468).
+
+## 1.120.0
+
+ - **REFACTOR**: request feature flag cleanup (#1455).
+ - **REFACTOR**: remove tx failure logging (#1453).
+ - **REFACTOR**: enable profiling (#1447).
+ - **FIX**: transaction request fixes (#1449).
+ - **FEAT**: show users list of tokens (#1433).
+ - **FEAT**: black background in activity and profile page (#1461).
+ - **FEAT**: fetch usd rate from backend (#1465).
+ - **FEAT**: homepage theme (#1452).
+ - **FEAT**: update local token list data (#1454).
+ - **FEAT**: update analytics (#1451).
+
+## 1.119.0
+
+ - **FEAT**: optmize startup time (#1444).
+
+## 1.118.0
+
+ - **REFACTOR**: use dcm 1.17.0 (#1441).
+ - **FIX**: show proper tx status for common tile (#1443).
+ - **FIX**: MobileWalletRepository lifecycle (#1437).
+ - **FEAT**: increase text button tap area (#1438).
+ - **FEAT**: add performance monitoring for app start (#1442).
+ - **FEAT**: re add puzzle quiz screen flow (#1430).
+ - **FEAT**: show loading title on webview (#1429).
+ - **FEAT**: integrate mixpanel (#1436).
+
+## 1.117.0
+
+ - **FIX**: camera overlay rendering (#1423).
+ - **FEAT**: unlock functionality behind FF (#1422).
+ - **FEAT**: validate shortened link hash (#1420).
+ - **FEAT**: minor padding adjustment (#1421).
+
+## 1.116.0
+
+ - **FEAT**: update evm qr parsing (#1418).
+ - **FEAT**: resolve incoming shortened deep links (#1419).
+ - **FEAT**: show only USDC transfers on transaction list (#1350).
+ - **FEAT**: validate solana pay reference if paid (#1379).
+
+## 1.115.0
+
+ - **REFACTOR**: restructure qr_scanner.
+ - **REFACTOR**: break outgoing_direct_payments -> wallet_flow.
+ - **REFACTOR**: break fees -> ramp.
+ - **REFACTOR**: break balances -> conversion_rates.
+ - **REFACTOR**: break conversion_rates -> wallet_flow.
+ - **REFACTOR**: break activities -> authenticated.
+ - **REFACTOR**: restructure accounts.
+ - **REFACTOR**: remove nested dependency (#1401).
+ - **FEAT**: update pay verification interval on opened request (#1410).
+ - **FEAT**: show add cash notice on zero balance (#1388).
+
+## 1.114.0
+
+ - **REFACTOR**: remove go_router (#1399).
+ - **FEAT**: update share screen uis (#1400).
+
+## 1.113.0
+
+ - **REFACTOR**: migrate to Flutter 3.19 (#1393).
+ - **REFACTOR**: update linter (#1392).
+ - **FEAT**: request payment module updates (#1375).
+
+## 1.112.0
+
+ - **FIX**: dynamic links on cold start (#1376).
+ - **FEAT**: add support to solana pay transaction request (#1366).
+ - **FEAT**: add feature flag for incoming dln request (#1384).
+
+## 1.111.0
+
+ - **REFACTOR**: remove common package (#1360).
+ - **REFACTOR**: remove logout listener (#1357).
+ - **REFACTOR**: tx updater (#1355).
+ - **REFACTOR**: remove unused code.
+ - **REFACTOR**: remove some obsolete modules (#1354).
+ - **REFACTOR**: restructure core (#1353).
+ - **REFACTOR**: remove internal src folders (#1352).
+ - **REFACTOR**: update lints.
+ - **REFACTOR**: transfer core to common package  (#1349).
+ - **FIX**: scalex minimum amount (#1373).
+ - **FIX**: odp failure message for no funds (#1339).
+ - **FEAT**: cache usdc balance (#1348).
+ - **FEAT**: simplify balance tracking  (#1343).
+ - **FEAT**: payment request tile title update (#1351).
+ - **FEAT**: update payment request link (#1341).
+ - **FEAT**: update request message label (#1342).
+
+## 1.110.2
+
+ - **FIX**: coinflow kyc flow  (#1347).
+
+## 1.110.1
+
+ - **FIX**: clear secure storage on first run (#1340).
+
+## 1.110.0
+
+ - **REFACTOR**: remove landing code from main app (#1336).
+ - **FEAT**: add cancel for failed direct payments (#1337).
+ - **FEAT**: update onboarding flow (#1324).
+
+## 1.109.0
+
+ - **FIX**: ramp redirect (#1323).
+ - **FIX**: resend tx when blockhash is valid.
+ - **FEAT**: remove scalex offramp fee (#1329).
+ - **FEAT**: ensure current countries not ofac blocklisted (#1328).
+
+## 1.108.0
+
+ - **FEAT**: resend tx on waiting.
+
+## 1.107.0
+
+ - **REFACTOR**: remove unused code.
+ - **REFACTOR**: update lint rules (#1320).
+ - **FEAT**: update ws subscription timeout.
+ - **FEAT**: remove investments section (#1327).
+ - **FEAT**: scalex ramp theme update (#1321).
+ - **FEAT**: remove banned countries from selector (#1326).
+ - **FEAT**: update profile error dialog (#1322).
+ - **FEAT**: remove onboarding notice banner (#1325).
+ - **FEAT**: update coinflow webview theme (#1307).
+ - **FEAT**: add compute unit price measurement (#1319).
+ - **FEAT**: remove Guardarian for US on ramp (#1306).
+
+## 1.106.0
+
+ - **REFACTOR**: simplify FormPage layout (#1304).
+ - **REFACTOR**: extract FormPage (#1303).
+ - **REFACTOR**: move link listeners (#1302).
+ - **REFACTOR**: remove saga code (#1297).
+ - **REFACTOR**: migrate to go_router (#1294).
+ - **FIX**: coinflow plaid bug (#1305).
+ - **FIX**: sending by link amount.
+ - **FIX**: ramp page scroll (#1296).
+ - **FEAT**: update confirmation dialog theme (#1308).
+ - **FEAT**: update ramp header title (#1318).
+ - **FEAT**: update tx performance monitoring.
+ - **FEAT**: web landing pages redesign (#1301).
+ - **FEAT**: routing navigation updates (#1298).
+ - **FEAT**: add last name field to ramp onboarding (#1295).
+
+## 1.105.0
+
+ - **REFACTOR**: remove declarative routes (#1288).
+ - **REFACTOR**: use DCM 1.14.0 (#1282).
+ - **REFACTOR**: rename ec client (#1281).
+ - **FIX**: scalex onramp fee calculation (#1279).
+ - **FIX**: scalex offramp  (#1277).
+ - **FEAT**: add last name (#1287).
+ - **FEAT**: payment screens redesign (#1272).
+ - **FEAT**: outgoing dln module updates (#1266).
+
+## 1.104.0
+
+ - **FIX**: intercom initialization (#1275).
+ - **FIX**: pay screen background blink (#1268).
+ - **FEAT**: update carousel for ios (#1274).
+ - **FEAT**: add intercom support (#1265).
+ - **FEAT**: make order id copyable (#1271).
+
+## 1.103.0
+
+ - **FIX**: incorrect token balance (#1259).
+ - **FEAT**: move Contact us and FAQ buttons (#1260).
+
+## 1.102.0
+
+ - **REFACTOR**: update ramp structure (#1251).
+ - **FEAT**: add FF for outgoing DLN (#1258).
+ - **FEAT**: outgoing cross chain payments (#1107).
+ - **FEAT**: update popular token list (#1257).
+ - **FEAT**: add tx waiting performance monitoring (#1255).
+ - **FEAT**: enable offramp for everyone (#1254).
+ - **FEAT**: splash animation update (#1236).
+ - **FEAT**: redesign investment widget (#1248).
+ - **FEAT**: update scalex cashout flow (#1249).
+ - **FEAT**: redesign web landing pages (#1237).
+
+## 1.101.1
+
+ - **FIX**: ODP service (#1245).
+ - **FIX**: receive link loading bug (#1241).
+ - **FIX**: checking status of outgoing escrow (#1244).
+
+## 1.101.0
+
+ - **REFACTOR**: splash dependency (#1230).
+ - **FIX**: update profile saving logic (#1239).
+ - **FIX**: webview camera (#1232).
+ - **FEAT**: add Guardarian partner for US onramp (#1229).
+
+## 1.100.0
+
+ - **FEAT**: disable saga functionality.
+ - **FEAT**: save country code to backend (#1235).
+ - **FEAT**: add name on pay request (#1134).
+ - **FEAT**: update fee calculation for withdraw (#1226).
+
+## 1.99.1
+
+ - **FIX**: backend client url.
+
+## 1.99.0
+
+ - **REFACTOR**: update linter (#1223).
+ - **FIX**: offramp watcher (#1221).
+ - **FEAT**: update l10n.
+ - **FEAT**: update scalex withdrawals (#1216).
+ - **FEAT**: splash screen updates (#1225).
+ - **FEAT**: wallet fee updates (#1220).
+ - **FEAT**: minor wallet label update (#1219).
+ - **FEAT**: add quiz module (#1158).
+
+## 1.98.0
+
+ - **FIX**: cancel cash out bug (#1213).
+ - **FEAT**: onboarding updates (#1214).
+ - **FEAT**: update flutter splash screen (#1215).
+ - **FEAT**: popular token ui (#1218).
+
+## 1.97.0
+
+ - **REFACTOR**: getting simulated balance.
+ - **FIX**: transaction waiting.
+ - **FIX**: coinflow withdrawal flow.
+ - **FIX**: coinflow build (#1209).
+ - **FEAT**: update l10n (#1211).
+ - **FEAT**: splash screen updates (#1201).
+
+## 1.96.0
+
+ - **REFACTOR**: move FileManager to data (#1190).
+ - **REFACTOR**: restructure features (#1183).
+ - **REFACTOR**: remove unused dependencies (#1182).
+ - **REFACTOR**: update dependencies (#1181).
+ - **REFACTOR**: update dependencies (#1179).
+ - **REFACTOR**: restructure features (#1178).
+ - **FIX**: coinflow versioned transactions (#1184).
+ - **FIX**: added generator build order (#1185).
+ - **FEAT**: update token list source (#1191).
+ - **FEAT**: dynamic first incoming fee (#1197).
+ - **FEAT**: minor label update (#1192).
+ - **FEAT**: auth backend requests (#1188).
+ - **FEAT**: updated popular token list (#1186).
+
+## 1.95.0
+
+ - **FEAT**: prefer ramp network in Europe (#1174).
+
+## 1.94.0
+
+ - **FEAT**: enable coinflow in Europe (#1173).
+
+## 1.93.0
+
+ - **REFACTOR**: update linter (#1170).
+ - **REFACTOR**: remove unused code (#1165).
+ - **REFACTOR**: partner select logic (#1164).
+ - **FIX**: auth scope init (#1171).
+ - **FEAT**: add onramp manual bank transfer support (#1168).
+ - **FEAT**: coinflow cashout integration  (#1166).
+ - **FEAT**: timeline widget updates (#1169).
+ - **FEAT**: ramp updates (#1161).
+ - **FEAT**: trigger ramp watchers immediately (#1167).
+ - **FEAT**: add fee message on incoming link payment (#1162).
+ - **FEAT**: add ramp transaction tiles (#1163).
+ - **FEAT**: redirect after kado onramp (#1159).
+
+## 1.92.0
+
+ - **REFACTOR**: migrate to Flutter 3.16.2 (#1157).
+ - **FEAT**: update onramp status screen  (#1155).
+ - **FEAT**: update offramp status screen (#1154).
+
+## 1.91.0
+
+ - **FIX**: remove home tab animation transition (#1141).
+ - **FIX**: webview onLoaded call (#1118).
+ - **FIX**: splash screen background color (#1140).
+ - **FIX**: image background load blink (#1145).
+ - **FIX**: timeline gap (#1131).
+ - **FEAT**: update l10n (#1152).
+ - **FEAT**: add scalex ramp (#1108).
+ - **FEAT**: Update l10n (#1151).
+ - **FEAT**: update l10n (#1150).
+ - **FEAT**: home screen ui updates (#1148).
+ - **FEAT**: update onboarding flow (#1142).
+ - **FEAT**: remove hardcoded keys (#1144).
+ - **FEAT**: offramp updates  (#1143).
+ - **FEAT**: onramp updates (#1117).
+ - **FEAT**: update profile qr code (#1129).
+ - **FEAT**: splash and sign-in update (#1132).
+
+## 1.90.0
+
+ - **FEAT**: update ramp screens ui (#1133).
+
+## 1.89.0
+
+ - **FEAT**: add kado off-ramp (#1137).
+ - **FEAT**: update home carousel (#1128).
+ - **FEAT**: add experimental flag (#1114).
+
+## 1.88.0
+
+ - **REFACTOR**: bump dependencies (#1113).
+ - **REFACTOR**: bump dependencies (#1109).
+ - **FIX**: crypto cash balance label (#1116).
+ - **FIX**: payment request amount (#1115).
+ - **FEAT**: update translations.
+
+## 1.87.1
+
+ - **FIX**: kado webview update (#1105).
+
+## 1.87.0
+
+ - **REFACTOR**: update lint rules (#1102).
+ - **FIX**: updated android 12 native splash (#1103).
+ - **FEAT**: reduce splash duration (#1100).
+ - **FEAT**: pay method ui update (#1099).
+
+## 1.86.0
+
+ - **FIX**: payment request link format (#1094).
+ - **FIX**: ramp ui updates (#1096).
+ - **FEAT**: update translations.
+ - **FEAT**: update splash screen (#1095).
+ - **FEAT**: various ui updates (#1097).
+ - **FEAT**: keypad and wallet ui (#1098).
+ - **FEAT**: update landing page config.
+
+## 1.85.0
+
+ - **REFACTOR**: update lint rules (#1091).
+ - **FIX**: app bar on investments screen (#1092).
+ - **FIX**: clear on-ramp orders on logout (#1090).
+ - **FIX**: kado order status (#1089).
+ - **FIX**: various UI updates (#1080).
+ - **FEAT**: add single link payments (#1071).
+ - **FEAT**: investment screen redesign (#1081).
+ - **FEAT**: payment request creation (#1088).
+ - **FEAT**: add payment landing site (#1069).
+
+## 1.84.0
+
+ - **REFACTOR**: migrate to Flutter 3.13.6 (#1077).
+ - **FEAT**: add pay method selection (#1075).
+ - **FEAT**: update remaning screens to black theme (#1076).
+ - **FEAT**: investment screen ui updates (#1065).
+ - **FEAT**: update to black theme (#1073).
+
+## 1.83.0
+
+ - **FIX**: small ui fixes (#1056).
+ - **FEAT**: update kado on-ramp (#1074).
+ - **FEAT**: add off-ramp amount screen (#1067).
+ - **FEAT**: add ramp onboarding screen (#1066).
+ - **FEAT**: update partner select screen layout (#1064).
+
+## 1.82.0
+
+ - **FEAT**: remove localizely ota (#1055).
+ - **FEAT**: provide email to onramp partners (#1054).
+ - **FEAT**: add email to profile (#1053).
+
+## 1.81.0
+
+ - **FEAT**: migrate to flutter_inappwebview (#1052).
+
+## 1.80.0
+
+ - **FEAT**: Integrate guardarian onramp (#1051).
+
+## 1.79.1
+
+ - **FIX**: kado onramp parameters (#1050).
+
+## 1.79.0
+
+ - **REFACTOR**: restructure some modules (#1048).
+ - **REFACTOR**: move BalancesBloc to get_it.
+ - **REFACTOR**: update linter (#1030).
+ - **REFACTOR**: migrate some freezed classes to sealed (#1029).
+ - **FIX**: remove 1d from token chart (#1049).
+ - **FIX**: make amount formatting more consistent (#1034).
+ - **FIX**: move BalancesBloc under authenticated flow.
+ - **FEAT**: add kado on-ramp (#1047).
+
+## 1.78.0
+
+ - **REFACTOR**: clean Amount and Currency (#1028).
+ - **REFACTOR**: remove UserPreferences (#1027).
+ - **REFACTOR**: update balances logic (#1026).
+ - **REFACTOR**: update routes handling (#1024).
+ - **FIX**: provide valid router keys.
+ - **FIX**: add padding to country selector.
+ - **FEAT**: add ramp flow logic (#1022).
+
+## 1.77.3
+
+ - **FIX**: center button in onboarding notice (#1021).
+
+## 1.77.2
+
+ - **REFACTOR**: consolidate profile screens (#1009).
+ - **REFACTOR**: update l10n keys.
+ - **REFACTOR**: update l10n keys.
+ - **REFACTOR**: update l10n keys.
+ - **FIX**: sign-in flow (#1010).
+
+## 1.77.1
+
+ - **REFACTOR**: update l10n keys (#1007).
+
+## 1.77.0
+
+ - **REFACTOR**: add AccountRepository (#1002).
+ - **REFACTOR**: decouple profile and account modules (#1001).
+ - **REFACTOR**: restructure code (#997).
+ - **FIX**: remove duplicated LogoutListener (#1000).
+ - **FIX**: padding in ProfileScreen (#998).
+ - **FEAT**: add l10n to ramp network add cash flow (#974).
+ - **FEAT**: add country selector on profile screen (#999).
+
+## 1.76.0
+
+ - **REFACTOR**: bump linter (#993).
+ - **REFACTOR**: update dfunc (#992).
+ - **FIX**: back button on app locked screen (#987).
+ - **FEAT**: update get started screen (#996).
+ - **FEAT**: skip wallet creation when receiving links on new wallet (#936).
+ - **FEAT**: curated list of popular tokens (#926).
+ - **FEAT**: localize chart time interval (#971).
+ - **FEAT**: upgrade auto router, refactor routes (#932).
+
+## 1.75.0
+
+ - **REFACTOR**: update lint rules.
+ - **FEAT**: update ramp network to latest version (#986).
+
+## 1.74.1
+
+ - **REFACTOR**: update linter.
+ - **REFACTOR**: remove unused method.
+
+## 1.74.0
+
+ - **REFACTOR**: migrate to Dart 3 and Flutter 3.10 (#981).
+ - **FIX**: update scenario handler.
+ - **FEAT**: add custom icon to back button (#973).
+ - **FEAT**: update second link animation (#972).
+ - **FEAT**: add coingecko l10n support for token details page (#975).
+
+## 1.73.0
+
+ - **FIX**: second link animation artifacts (#960).
+ - **FIX**: update l10n key.
+ - **FEAT**: token details page enhancements  (#961).
+ - **FEAT**: truncate usdc amount on messages (#959).
+
+## 1.72.0
+
+ - **FIX**: correctly sign old cancellation tx (#957).
+ - **FEAT**: update sign in with saga flow (#958).
+
+## 1.71.0
+
+ - **FEAT**: don't show manual input button after first qr scanned (#954).
+
+## 1.70.0
+
+ - **FEAT**: update solanapay host (#951).
+
+## 1.69.0
+
+ - **FIX**: center iskp screen content (#887).
+ - **FIX**: add safe area to screens (#917).
+ - **FIX**: update iskp failure reason (#886).
+ - **FIX**: investment header overflow  (#896).
+ - **FIX**: usdc conversion rate on wallet main flow (#870).
+ - **FIX**: add padding on navigation bar overlap (#868).
+ - **FIX**: remove blank home screen after keyboard interaction (#906).
+ - **FEAT**: updated token chart design (#929).
+ - **FEAT**: update splash screen (#937).
+ - **FEAT**: use smart contract for escrow payments app (#894).
+ - **FEAT**: add mobile wallet adapter to app (#873).
+ - **FEAT**: add seed vault integration (#851).
+ - **FEAT**: remove intercom (#948).
+ - **FEAT**: remove duplicate edit profile menu option (#918).
+ - **FEAT**: cache coingecko results (#904).
+ - **FEAT**: pins app bar on token details screen (#915).
+ - **FEAT**: add custom route to open links in-app (#908).
+ - **FEAT**: add token unavailable to swap notice (#931).
+ - **FEAT**: add sentry logs to iskp (#930).
+ - **FEAT**: add Brazilian Portuguese language support (#880).
+ - **FEAT**: re tapping nav bar pops route (#905).
+ - **FEAT**: enable languages for ios (#901).
+ - **FEAT**: storybook updates (#871).
+ - **FEAT**: Spanish translation (#895).
+ - **FEAT**: qr links update (#909).
+ - **FEAT**: style cancel popup on first link screen (#885).
+ - **FEAT**: udpate minimum amount to send and request (#946).
+ - **FEAT**: add dynamic texts to onboarding notice (#890).
+ - **FEAT**: add scan qr button in investment screen (#916).
+ - **FEAT**: add french translation (#892).
+ - **FEAT**: polling to avoid websocket broken connection when waiting for transactions statuses (#866).
+ - **FEAT**: remove hardcoded strings (#891).
+ - **FEAT**: update first link screen (#940).
+ - **FEAT**: set up localizely (#912).
+ - **DOCS**: readme updates (#888).
+
 ## 1.68.0
 
  - **FIX**: swap token dropdown splash (#852).

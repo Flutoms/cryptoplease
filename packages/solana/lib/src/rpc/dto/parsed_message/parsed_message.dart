@@ -15,9 +15,9 @@ export 'spl_token_transfer_info.dart';
 part 'parsed_message.g.dart';
 
 /// A parsed message that is part of a Transaction object.
-@JsonSerializable(createToJson: false)
+@JsonSerializable()
 class ParsedMessage implements Message {
-  ParsedMessage({
+  const ParsedMessage({
     required this.accountKeys,
     required this.recentBlockhash,
     required this.instructions,
@@ -42,4 +42,7 @@ class ParsedMessage implements Message {
 
   @override
   final List<AddressTableLookups>? addressTableLookups;
+
+  @override
+  Map<String, dynamic> toJson() => _$ParsedMessageToJson(this);
 }

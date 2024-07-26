@@ -1,10 +1,12 @@
+// ignore_for_file: prefer-typedefs-for-callbacks
+
 part of 'client.dart';
 
 extension RpcClientExt on RpcClient {
   Future<TransactionId> signAndSendTransaction(
     Message message,
     List<Ed25519HDKeyPair> signers, {
-    FutureOr<void> Function(Signature)? onSigned,
+    FutureOr<void> Function(Signature signature)? onSigned,
     Commitment commitment = Commitment.finalized,
   }) async {
     final recentBlockhash =
@@ -46,6 +48,7 @@ extension RpcClientExt on RpcClient {
     String? until,
     Commitment? commitment,
     Encoding? encoding,
+    // ignore: avoid-nullable-parameters-with-default-values, null has a meaning here
     num? maxSupportedTransactionVersion = 0,
     num? minContextSlot,
   }) async {
@@ -78,6 +81,7 @@ extension RpcClientExt on RpcClient {
     List<TransactionSignatureInformation> signatures, {
     Commitment? commitment,
     Encoding? encoding,
+    // ignore: avoid-nullable-parameters-with-default-values, null has a meaning here
     num? maxSupportedTransactionVersion = 0,
   }) async {
     final response = await _jsonRpcClient.bulkRequest(
@@ -129,14 +133,14 @@ extension RpcClientExt on RpcClient {
 
   Future<List<AddressLookupTableAccount>> getAddressLookUpTableAccounts(
     List<MessageAddressTableLookup> addressTableLookups,
-  ) async =>
+  ) =>
       Future.wait(
         addressTableLookups
             .map((lookup) async => getAddressLookupTable(lookup.accountKey))
             .toList(),
       );
 
-  Future<Message> getMessageFromEncodedTx(String encodedTx) async {
+  Future<Message> getMessageFromEncodedTx(String encodedTx) {
     final tx = SignedTx.decode(encodedTx);
 
     return tx.compiledMessage.map(

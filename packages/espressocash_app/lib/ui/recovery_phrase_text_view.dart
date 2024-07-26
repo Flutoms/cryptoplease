@@ -3,17 +3,16 @@ import 'package:flutter/services.dart';
 
 import '../l10n/l10n.dart';
 import 'button.dart';
-import 'colors.dart';
 import 'snackbar.dart';
 import 'theme.dart';
 
 class RecoveryPhraseTextView extends StatelessWidget {
   const RecoveryPhraseTextView({
-    Key? key,
+    super.key,
     this.phrase = '',
     this.backgroundColor,
     this.hasCopyButton = true,
-  }) : super(key: key);
+  });
 
   final String phrase;
   final Color? backgroundColor;
@@ -22,14 +21,14 @@ class RecoveryPhraseTextView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => DecoratedBox(
         decoration: BoxDecoration(
-          color: backgroundColor ?? CpColors.darkBackground,
+          color: backgroundColor ?? Colors.black,
           borderRadius: const BorderRadius.all(Radius.circular(30)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+              padding: const EdgeInsets.all(24),
               child: Text(
                 phrase,
                 textAlign: TextAlign.justify,

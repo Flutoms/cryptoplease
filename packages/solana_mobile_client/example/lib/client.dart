@@ -1,3 +1,5 @@
+// ignore_for_file: cast_nullable_to_non_nullable
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -7,10 +9,13 @@ import 'package:solana_mobile_client/solana_mobile_client.dart';
 
 part 'client.freezed.dart';
 
+// ignore: avoid-cubits, just an example
 class ClientBloc extends Cubit<ClientState> {
   ClientBloc(this._solanaClient) : super(const ClientState());
 
   final SolanaClient _solanaClient;
+
+  Future<bool> isWalletAvailable() => LocalAssociationScenario.isAvailable();
 
   Future<void> requestCapabilities() async {
     final session = await LocalAssociationScenario.create();
@@ -91,7 +96,12 @@ class ClientBloc extends Cubit<ClientState> {
 
       final addresses = [signer.bytes].map(Uint8List.fromList).toList();
       final messages = _generateMessages(number: number, signer: signer)
-          .map((e) => e.compile(recentBlockhash: '').data.toList())
+          .map(
+            (e) => e
+                .compile(recentBlockhash: '', feePayer: signer)
+                .toByteArray()
+                .toList(),
+          )
           .map(Uint8List.fromList)
           .toList();
 
@@ -110,16 +120,13 @@ class ClientBloc extends Cubit<ClientState> {
       final signer = state.publicKey as Ed25519HDPublicKey;
 
       final blockhash = await _solanaClient.rpcClient
-          .getRecentBlockhash()
-          .then((value) => value.blockhash);
-      final txs = await _generateTransactions(
+          .getLatestBlockhash()
+          .then((it) => it.value.blockhash);
+      final txs = _generateTransactions(
         number: number,
         signer: signer,
         blockhash: blockhash,
-      )
-          .thenMap((e) => e.toByteArray().toList())
-          .thenMap(Uint8List.fromList)
-          .then((value) => value.toList());
+      ).map((e) => e.toByteArray().toList()).map(Uint8List.fromList).toList();
 
       await client.signAndSendTransactions(transactions: txs);
     }
@@ -157,16 +164,13 @@ class ClientBloc extends Cubit<ClientState> {
     final signer = state.publicKey as Ed25519HDPublicKey;
 
     final blockhash = await _solanaClient.rpcClient
-        .getRecentBlockhash()
-        .then((value) => value.blockhash);
-    final txs = await _generateTransactions(
+        .getLatestBlockhash()
+        .then((it) => it.value.blockhash);
+    final txs = _generateTransactions(
       number: number,
       signer: signer,
       blockhash: blockhash,
-    )
-        .thenMap((e) => e.toByteArray().toList())
-        .thenMap(Uint8List.fromList)
-        .then((value) => value.toList());
+    ).map((e) => e.toByteArray().toList()).map(Uint8List.fromList).toList();
 
     await client.signTransactions(transactions: txs);
   }
@@ -201,11 +205,6 @@ class ClientBloc extends Cubit<ClientState> {
   }
 }
 
-extension<A> on Future<Iterable<A>> {
-  Future<Iterable<B>> thenMap<B>(B Function(A) f) =>
-      then((value) => value.map(f));
-}
-
 @freezed
 class ClientState with _$ClientState {
   const factory ClientState({
@@ -230,11 +229,11 @@ class ClientState with _$ClientState {
   String? get address => publicKey?.toBase58();
 }
 
-Future<List<SignedTx>> _generateTransactions({
+List<SignedTx> _generateTransactions({
   required int number,
   required Ed25519HDPublicKey signer,
   required String blockhash,
-}) async {
+}) {
   final instructions = List.generate(
     number,
     (index) => MemoInstruction(signers: [signer], memo: 'Memo #$index'),
@@ -245,7 +244,8 @@ Future<List<SignedTx>> _generateTransactions({
       .map(Message.only)
       .map(
         (e) => SignedTx(
-          messageBytes: e.compile(recentBlockhash: blockhash).data,
+          compiledMessage:
+              e.compile(recentBlockhash: blockhash, feePayer: signer),
           signatures: [signature],
         ),
       )

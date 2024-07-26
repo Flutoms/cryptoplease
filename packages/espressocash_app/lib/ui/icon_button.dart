@@ -7,9 +7,13 @@ enum CpIconButtonVariant {
   dark,
   grey,
   light,
+  black,
+  transparent,
 }
 
 enum CpIconButtonSize {
+  large,
+  big,
   normal,
   small,
   micro,
@@ -17,12 +21,12 @@ enum CpIconButtonSize {
 
 class CpIconButton extends StatelessWidget {
   const CpIconButton({
-    Key? key,
+    super.key,
     required this.icon,
     required this.onPressed,
     this.variant = CpIconButtonVariant.grey,
     this.size = CpIconButtonSize.normal,
-  }) : super(key: key);
+  });
 
   final SvgPicture icon;
   final VoidCallback onPressed;
@@ -37,11 +41,19 @@ class CpIconButton extends StatelessWidget {
         return CpColors.greyIconBackgroundColor;
       case CpIconButtonVariant.light:
         return Colors.white;
+      case CpIconButtonVariant.black:
+        return Colors.black;
+      case CpIconButtonVariant.transparent:
+        return Colors.transparent;
     }
   }
 
   double get _size {
     switch (size) {
+      case CpIconButtonSize.large:
+        return 72;
+      case CpIconButtonSize.big:
+        return 40;
       case CpIconButtonSize.normal:
         return 34;
       case CpIconButtonSize.small:
@@ -59,6 +71,7 @@ class CpIconButton extends StatelessWidget {
           color: _backgroundColor,
         ),
         child: IconButton(
+          iconSize: _size,
           padding: const EdgeInsets.all(6),
           icon: icon,
           onPressed: onPressed,

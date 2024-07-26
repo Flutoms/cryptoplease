@@ -14,21 +14,24 @@ class OnboardingScreen extends StatelessWidget {
   final List<Widget> children;
 
   @override
-  Widget build(BuildContext context) => LayoutBuilder(
-        builder: (context, constraints) => SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: constraints.copyWith(
-              minHeight: constraints.maxHeight,
-              maxHeight: double.infinity,
-            ),
-            child: IntrinsicHeight(
-              child: Column(
-                children: [
-                  ...children,
-                  Expanded(
-                    child: footer,
-                  ),
-                ],
+  Widget build(BuildContext context) => SafeArea(
+        top: false,
+        child: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: constraints.copyWith(
+                minHeight: constraints.maxHeight,
+                maxHeight: double.infinity,
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    ...children,
+                    Expanded(
+                      child: footer,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -37,7 +40,7 @@ class OnboardingScreen extends StatelessWidget {
 }
 
 extension on BuildContext {
-  bool get isSmall => MediaQuery.of(this).size.width < 400;
+  bool get isSmall => MediaQuery.sizeOf(this).width < 400;
 }
 
 class OnboardingPadding extends StatelessWidget {

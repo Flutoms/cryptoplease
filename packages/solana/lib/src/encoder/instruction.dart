@@ -18,7 +18,7 @@ class Instruction {
     required this.programId,
     required this.accounts,
     required this.data,
-  }) : super();
+  });
 
   final Ed25519HDPublicKey programId;
   final List<AccountMeta> accounts;
@@ -51,7 +51,7 @@ class Instruction {
   }
 
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other.runtimeType == runtimeType &&
           other is Instruction &&

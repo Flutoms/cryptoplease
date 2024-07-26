@@ -4,11 +4,13 @@ import '../rounded_rectangle.dart';
 
 class ShareMessageBubble extends StatefulWidget {
   const ShareMessageBubble({
-    Key? key,
+    super.key,
     required this.textSpan,
-  }) : super(key: key);
+    this.backgroundColor,
+  });
 
   final TextSpan textSpan;
+  final Color? backgroundColor;
 
   @override
   State<ShareMessageBubble> createState() => _ShareMessageBubbleState();
@@ -28,6 +30,7 @@ class _ShareMessageBubbleState extends State<ShareMessageBubble> {
         width: double.infinity,
         child: CpRoundedRectangle(
           scrollable: true,
+          backgroundColor: widget.backgroundColor,
           margin: const EdgeInsets.symmetric(vertical: 24),
           padding: const EdgeInsets.symmetric(
             horizontal: 32,

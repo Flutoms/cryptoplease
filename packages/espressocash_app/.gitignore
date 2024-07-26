@@ -129,3 +129,7 @@ test/generated/
 **/failures/*.png
 
 *.dot
+
+prod.json
+
+lib/l10n/gen/

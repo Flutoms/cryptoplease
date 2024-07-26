@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
 
 import '../gen/assets.gen.dart';
-import 'background_gradient.dart';
+import 'colors.dart';
 import 'theme.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) => CpTheme.dark(
-        child: CpBackgroundGradient(
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.bottomCenter,
-                child:
-                    Assets.icons.logoBg.svg(alignment: Alignment.bottomCenter),
-              ),
-              Align(
-                alignment: const Alignment(0, -0.7),
-                child: Assets.images.logo.image(height: 195, width: 300),
-              ),
-            ],
+  Widget build(BuildContext context) => const CpTheme.black(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: CpColors.yellowSplashBackgroundColor,
+          ),
+          child: Center(
+            child: SplashLogo(),
           ),
         ),
+      );
+}
+
+class SplashLogo extends StatelessWidget {
+  const SplashLogo({super.key});
+
+  @override
+  Widget build(BuildContext context) => Hero(
+        tag: 'logo',
+        child: Assets.images.logo.image(height: 66),
       );
 }

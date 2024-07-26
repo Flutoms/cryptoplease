@@ -7,7 +7,7 @@ enum CpTextFieldBorder { rounded, stadium }
 
 class CpTextField extends StatelessWidget {
   const CpTextField({
-    Key? key,
+    super.key,
     this.controller,
     this.placeholder,
     this.margin,
@@ -21,7 +21,11 @@ class CpTextField extends StatelessWidget {
     this.suffix,
     this.border = CpTextFieldBorder.stadium,
     this.prefix,
-  }) : super(key: key);
+    this.textColor = CpColors.primaryTextColor,
+    this.textInputAction,
+    this.multiLine = false,
+    this.textCapitalization = TextCapitalization.none,
+  });
 
   final TextEditingController? controller;
   final EdgeInsetsGeometry padding;
@@ -36,10 +40,15 @@ class CpTextField extends StatelessWidget {
   final Widget? suffix;
   final Widget? prefix;
   final CpTextFieldBorder border;
+  final Color? textColor;
+  final TextInputAction? textInputAction;
+  final bool? multiLine;
+  final TextCapitalization textCapitalization;
 
   @override
   Widget build(BuildContext context) {
     final prefix = this.prefix;
+    final multiLine = this.multiLine ?? false;
 
     return Container(
       margin: margin,
@@ -60,18 +69,20 @@ class CpTextField extends StatelessWidget {
         readOnly: readOnly,
         textAlignVertical: TextAlignVertical.center,
         controller: controller,
-        maxLines: 1,
+        maxLines: multiLine ? null : 1,
         cursorColor: CpColors.yellowColor,
         style: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: fontSize,
-          color: CpColors.primaryTextColor,
+          color: textColor,
           height: 1.2,
         ),
         placeholder: placeholder,
         keyboardType: inputType,
+        textCapitalization: textCapitalization,
         keyboardAppearance: Theme.of(context).brightness,
         placeholderStyle: TextStyle(color: placeholderColor),
+        textInputAction: textInputAction,
         prefix: prefix == null
             ? null
             : Padding(

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer-typedefs-for-callbacks
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 Map<K, V> fromJsonMap<K, V>(
@@ -17,12 +19,12 @@ Map<K, V> fromJsonMap<K, V>(
   return result;
 }
 
-List<T> fromJsonArray<T>(dynamic array, T Function(dynamic) convert) {
+List<T> fromJsonArray<T>(dynamic array, T Function(dynamic value) convert) {
   if (array is List) {
     return array.map(convert).toList(growable: false);
-  } else {
-    throw const FormatException('invalid input type is not json array');
   }
+
+  throw const FormatException('invalid input type is not json array');
 }
 
 dynamic getResult(dynamic raw) {

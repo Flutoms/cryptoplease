@@ -1,11 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../l10n/l10n.dart';
-import '../../../routes.gr.dart';
 import '../../../ui/profile_switch.dart';
-import '../src/bl/app_lock_bloc.dart';
+import '../screens/app_lock_disable_screen.dart';
+import '../screens/app_lock_enable_screen.dart';
+import '../services/app_lock_bloc.dart';
 
 class AppLockMenuItem extends StatelessWidget {
   const AppLockMenuItem({super.key});
@@ -13,15 +13,12 @@ class AppLockMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocBuilder<AppLockBloc, AppLockState>(
         builder: (context, state) => ProfileSwitch(
-          label: context.l10n.appLock,
-          subtitle: context.l10n.appLockDescription,
+          label: context.l10n.appLock_lblAutoLock,
+          subtitle: context.l10n.appLock_lblAutoLockDescription,
           value: state is AppLockStateEnabled,
-          onChanged: (value) {
-            final screen = value
-                ? const AppLockEnableRoute()
-                : const AppLockDisableRoute();
-            context.router.push(AppLockSetupFlowRoute(children: [screen]));
-          },
+          onChanged: (value) => value
+              ? AppLockEnableScreen.push(context)
+              : AppLockDisableScreen.push(context),
         ),
       );
 }

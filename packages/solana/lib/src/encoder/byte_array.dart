@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:solana/base58.dart';
 
+@immutable
 class ByteArray extends Iterable<int> {
   ByteArray(Iterable<int> data)
       : assert(
@@ -76,7 +78,7 @@ ByteArray _encodeBigInt(BigInt number, int s) {
   }
 
   final result = Uint8List(s);
-  for (var i = 0; i < s; i++) {
+  for (int i = 0; i < s; i++) {
     result[i] = (number & _byteMask).toInt();
     number = number >> 8;
   }
@@ -90,7 +92,7 @@ ByteArray _encodeBigIntAsUnsigned(BigInt number, int s) {
   }
 
   final result = Uint8List(s);
-  for (var i = 0; i < s; i++) {
+  for (int i = 0; i < s; i++) {
     result[i] = (number & _byteMask).toInt();
     number = number >> 8;
   }

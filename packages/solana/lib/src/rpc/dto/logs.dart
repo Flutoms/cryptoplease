@@ -1,3 +1,5 @@
+// ignore_for_file: no-object-declaration
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'logs.g.dart';
@@ -16,4 +18,6 @@ class Logs {
   final String signature;
   final Object? err;
   final List<String> logs;
+
+  Map<String, dynamic> toJson() => _$LogsToJson(this);
 }

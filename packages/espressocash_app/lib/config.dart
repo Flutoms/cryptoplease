@@ -45,7 +45,8 @@ const privacyUrl = 'https://espressocash.com/docs/legal/privacy';
 /// It's pre-calculated for `TokenProgram.neededAccountSpace = 165`.
 const int tokenProgramRent = 2039280;
 
-const Duration waitForSignatureDefaultTimeout = Duration(seconds: 25);
+const Duration waitForSignatureDefaultTimeout = Duration(seconds: 90);
+const Duration pingDefaultInterval = Duration(seconds: 1);
 
 const _mainNetChainId = 101;
 const _devNetChainId = 103;
@@ -56,17 +57,31 @@ const _solanaHost = isProd
     ? '' // mainnet URL should be provided via environment variable
     : 'api.devnet.solana.com';
 
-const cpLinkDomain = 'cryptoplease.link';
-const link1Host = 'solana1.$cpLinkDomain';
-const link2Host = 'solana2.$cpLinkDomain';
-const solanaPayHost = 'solanapay.$cpLinkDomain';
-const moonpayHost = 'moonpay.$cpLinkDomain';
+const espressoCashLinkDomain = 'pay.espressocash.com';
+const espressoCashLinkProtocol = 'espressocash';
 
 const kadoBaseUrl = 'https://app.kado.money/';
+const kadoApiBaseUrl = 'https://api.kado.money';
 const kadoApiKey = String.fromEnvironment('KADO_API_KEY');
+
+const rampApiKey = String.fromEnvironment('RAMP_API_KEY');
+
+const guardarianBaseUrl = 'https://guardarian.com/calculator/v1';
+const guardarianApiKey = String.fromEnvironment('GUARDARIAN_API_KEY');
+
+const coinflowApiUrl = isProd
+    ? 'https://api.coinflow.cash/api/'
+    : 'https://api-sandbox.coinflow.cash/api/';
+
+const coinflowKycUrl = isProd
+    ? 'https://coinflow.cash/withdraw/espresso'
+    : 'https://sandbox.coinflow.cash/withdraw/espresso';
+
+const maxPayloadsPerSigningRequest = 10;
+
+const playstoreName = 'com.pleasecrypto.flutter';
+const appstoreId = '1559625715';
 
 const intercomAppId = String.fromEnvironment('INTERCOM_APP_ID');
 const intercomIosKey = String.fromEnvironment('INTERCOM_IOS_KEY');
 const intercomAndroidKey = String.fromEnvironment('INTERCOM_ANDROID_KEY');
-
-const rampApiKey = String.fromEnvironment('RAMP_API_KEY');

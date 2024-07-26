@@ -1,6 +1,7 @@
 import 'package:pigeon/pigeon.dart';
 
 @HostApi()
+// ignore: prefer-declaring-const-constructor, not supported
 abstract class ApiLocalAssociationScenario {
   @async
   void create(int id);
@@ -13,6 +14,8 @@ abstract class ApiLocalAssociationScenario {
 
   @async
   void startActivityForResult(int id, String? uriPrefix);
+
+  bool isWalletEndpointAvailable();
 
   @async
   GetCapabilitiesResultDto getCapabilities(int id);
@@ -42,7 +45,7 @@ abstract class ApiLocalAssociationScenario {
   SignPayloadsResultDto signTransactions(int id, List<Uint8List> transactions);
 
   @async
-  SignPayloadsResultDto signMessages(
+  SignMessagesResultDto signMessages(
     int id,
     List<Uint8List> messages,
     List<Uint8List> addresses,
@@ -57,7 +60,7 @@ abstract class ApiLocalAssociationScenario {
 }
 
 class GetCapabilitiesResultDto {
-  GetCapabilitiesResultDto({
+  const GetCapabilitiesResultDto({
     required this.supportsCloneAuthorization,
     required this.supportsSignAndSendTransactions,
     required this.maxTransactionsPerSigningRequest,
@@ -71,7 +74,7 @@ class GetCapabilitiesResultDto {
 }
 
 class AuthorizationResultDto {
-  AuthorizationResultDto({
+  const AuthorizationResultDto({
     required this.authToken,
     required this.publicKey,
     required this.accountLabel,
@@ -85,7 +88,7 @@ class AuthorizationResultDto {
 }
 
 class SignPayloadsResultDto {
-  SignPayloadsResultDto({
+  const SignPayloadsResultDto({
     required this.signedPayloads,
   });
 
@@ -93,9 +96,29 @@ class SignPayloadsResultDto {
 }
 
 class SignAndSendTransactionsResultDto {
-  SignAndSendTransactionsResultDto({
+  const SignAndSendTransactionsResultDto({
     required this.signatures,
   });
 
   final List<Uint8List?> signatures;
+}
+
+class SignedMessageDto {
+  const SignedMessageDto({
+    required this.message,
+    required this.addresses,
+    required this.signatures,
+  });
+
+  final Uint8List message;
+  final List<Uint8List?> addresses;
+  final List<Uint8List?> signatures;
+}
+
+class SignMessagesResultDto {
+  const SignMessagesResultDto({
+    required this.messages,
+  });
+
+  final List<SignedMessageDto?> messages;
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../app_bar.dart';
 import '../background_gradient.dart';
+import '../colors.dart';
 import '../theme.dart';
 import 'decorated_window_header.dart';
 
@@ -9,7 +10,7 @@ enum BackgroundStyle { gradient, light, dark }
 
 class DecoratedWindow extends StatelessWidget {
   const DecoratedWindow({
-    Key? key,
+    super.key,
     this.title,
     this.message,
     required this.child,
@@ -20,7 +21,7 @@ class DecoratedWindow extends StatelessWidget {
     this.backgroundStyle = BackgroundStyle.gradient,
     this.markdownMessage = false,
     this.bottomButton,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final String? title;
@@ -37,6 +38,7 @@ class DecoratedWindow extends StatelessWidget {
   Widget build(BuildContext context) {
     final layout = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -64,9 +66,7 @@ class DecoratedWindow extends StatelessWidget {
           leading: backButton,
           nextButton: nextButton,
         ),
-        backgroundColor: backgroundStyle == BackgroundStyle.gradient
-            ? Colors.transparent
-            : null,
+        backgroundColor: CpColors.darkGoldLockBackgroundColor,
         body: isScrollable
             ? LayoutBuilder(
                 builder: (context, constraints) => SingleChildScrollView(
@@ -83,11 +83,10 @@ class DecoratedWindow extends StatelessWidget {
     );
     switch (backgroundStyle) {
       case BackgroundStyle.dark:
+      case BackgroundStyle.light:
         return content;
       case BackgroundStyle.gradient:
         return CpBackgroundGradient(child: content);
-      case BackgroundStyle.light:
-        return content;
     }
   }
 }

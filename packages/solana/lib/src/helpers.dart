@@ -1,5 +1,3 @@
-library utilities;
-
 import 'package:solana/encoder.dart';
 import 'package:solana/solana.dart';
 import 'package:solana/src/curve25519/compressed_edwards_y.dart';
@@ -37,9 +35,10 @@ bool isPointOnEd25519Curve(Iterable<int> data) {
 Future<Ed25519HDPublicKey> findAssociatedTokenAddress({
   required Ed25519HDPublicKey owner,
   required Ed25519HDPublicKey mint,
+  TokenProgramType tokenProgramType = TokenProgramType.tokenProgram,
 }) =>
     Ed25519HDPublicKey.findProgramAddress(
-      seeds: [owner.bytes, TokenProgram.id.toByteArray(), mint.bytes],
+      seeds: [owner.bytes, tokenProgramType.id.toByteArray(), mint.bytes],
       programId: AssociatedTokenAccountProgram.id,
     );
 
@@ -47,7 +46,7 @@ Future<SignedTx> signTransaction(
   RecentBlockhash recentBlockhash,
   Message message,
   List<Ed25519HDKeyPair> signers,
-) async {
+) {
   if (signers.isEmpty) {
     throw const FormatException('you must specify at least on signer');
   }
@@ -68,7 +67,7 @@ Future<SignedTx> signV0Transaction(
   Message message,
   List<Ed25519HDKeyPair> signers, {
   List<AddressLookupTableAccount> addressLookupTableAccounts = const [],
-}) async {
+}) {
   if (signers.isEmpty) {
     throw const FormatException('you must specify at least on signer');
   }

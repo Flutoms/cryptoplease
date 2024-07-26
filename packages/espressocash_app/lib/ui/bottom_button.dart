@@ -4,10 +4,10 @@ import 'button.dart';
 
 class CpBottomButton extends StatelessWidget {
   const CpBottomButton({
-    Key? key,
+    super.key,
     required this.text,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   final String text;
   final VoidCallback? onPressed;
@@ -15,6 +15,8 @@ class CpBottomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.symmetric(vertical: 24),
+        // TODO(KB): Check if needed
+        // ignore: avoid-single-child-column-or-row
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

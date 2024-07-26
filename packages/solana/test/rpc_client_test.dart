@@ -1,3 +1,5 @@
+// ignore_for_file: cast_nullable_to_non_nullable, avoid-unnecessary-late
+
 import 'dart:async';
 
 import 'package:bip39/bip39.dart';
@@ -12,7 +14,7 @@ const int _transferredAmount = lamportsPerSol;
 
 void main() {
   group('Timeout exceptions', () {
-    test('throws exception with method name on timeout', () async {
+    test('throws exception with method name on timeout', () {
       final client = RpcClient(devnetRpcUrl, timeout: Duration.zero);
 
       expect(
@@ -27,7 +29,7 @@ void main() {
       );
     });
 
-    test('throws exception with bulk method names on timeout', () async {
+    test('throws exception with bulk method names on timeout', () {
       final client = RpcClient(devnetRpcUrl, timeout: Duration.zero);
       const transactions = [
         TransactionSignatureInformation(
@@ -152,7 +154,7 @@ void main() {
             commitment: Commitment.confirmed,
           )
           .value;
-      expect(transferResult.err, null);
+      expect(transferResult.err, isNull);
     });
 
     test('Transfer SOL', () async {
@@ -375,7 +377,6 @@ void main() {
       final programData = data as ParsedSplTokenProgramAccountData;
       final parsed = programData.parsed as TokenAccountData;
       expect(parsed.info.mint, token.address.toBase58());
-      expect(parsed, isNotNull);
     });
   });
 
@@ -400,7 +401,6 @@ void main() {
         () async {
       final version = await client.rpcClient.getVersion();
 
-      expect(version.solanaCore, isNotNull);
       expect(version.solanaCore.codeUnitAt(0), equals(49));
       expect(version.solanaCore.codeUnitAt(1), equals(46));
     });
@@ -531,7 +531,7 @@ void main() {
 
     test('Call to getBlockProduction() succeeds', () async {
       final blockProduction = await client.rpcClient.getBlockProduction();
-      expect(blockProduction, isNotNull);
+      expect(blockProduction.value.range.firstSlot, isNonNegative);
     });
 
     test(
@@ -558,7 +558,7 @@ void main() {
     test('Call to getGenesisHash() succeeds', () async {
       final genesisHash = await client.rpcClient.getGenesisHash();
       // TODO(IA): could check if it is a valid base58 string
-      expect(genesisHash, isNotNull);
+      expect(genesisHash, isNotEmpty);
     });
 
     test('Call to getHealth() succeeds', () async {
@@ -568,19 +568,19 @@ void main() {
 
     test('Call to getInflationGovernor() succeeds', () async {
       final inflationGovernor = await client.rpcClient.getInflationGovernor();
-      expect(inflationGovernor, isNotNull);
+      expect(inflationGovernor.foundation, isNonNegative);
     });
 
     test('Call to getInflationGovernor() succeeds with commitment', () async {
       final inflationGovernor = await client.rpcClient.getInflationGovernor(
         commitment: Commitment.finalized,
       );
-      expect(inflationGovernor, isNotNull);
+      expect(inflationGovernor.foundation, isNonNegative);
     });
 
     test('Call to getInflationRate() succeeds', () async {
       final inflationGovernor = await client.rpcClient.getInflationRate();
-      expect(inflationGovernor, isNotNull);
+      expect(inflationGovernor.foundation, isNonNegative);
     });
 
     test(
@@ -643,18 +643,17 @@ void main() {
           .isBlockhashValid(recentBlockhash.blockhash)
           .value;
 
-      expect(isBlockhashValid, isNotNull);
       expect(isBlockhashValid, true);
     });
 
     test('Call to getHighestSnapshotSlot() succeeds', () async {
       final snapshot = await client.rpcClient.getHighestSnapshotSlot();
-      expect(snapshot, isNotNull);
+      expect(snapshot.full, isPositive);
     });
 
     test('Call to getLatestBlockhash() succeeds', () async {
       final blockhash = await client.rpcClient.getLatestBlockhash();
-      expect(blockhash, isNotNull);
+      expect(blockhash.value.blockhash, isNotEmpty);
     });
 
     test(
@@ -663,10 +662,8 @@ void main() {
         final stakeMinimumDelegation =
             await client.rpcClient.getStakeMinimumDelegation();
 
-        expect(stakeMinimumDelegation, isNotNull);
-        expect(stakeMinimumDelegation, isA<int>());
+        expect(stakeMinimumDelegation.value, isA<int>());
       },
-      skip: true,
     );
 
     test('Call to getFees() succeeds', () async {
@@ -689,7 +686,7 @@ void main() {
 
     test('Call to getIdentity() succeeds', () async {
       final identity = await client.rpcClient.getIdentity();
-      expect(identity, isNotNull);
+      expect(identity.identity, isNotEmpty);
     });
 
     test('Call to getMaxRetransmitSlot() succeeds', () async {
@@ -828,7 +825,7 @@ void main() {
         commitment: Commitment.confirmed,
       );
 
-      expect(account, isNotNull);
+      expect(account.value, isNotNull);
     });
 
     test('Call to getAccountInfo() succeeds with base58 throws for large data',
@@ -853,7 +850,7 @@ void main() {
         commitment: Commitment.confirmed,
       );
 
-      expect(account, isNotNull);
+      expect(account.value, isNotNull);
     });
   });
 }

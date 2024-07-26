@@ -14,12 +14,21 @@ import 'package:solana/src/subscription_client/notification_message.dart';
 import 'package:solana/src/subscription_client/optional_error.dart';
 import 'package:solana/src/subscription_client/subscribed_message.dart';
 import 'package:solana/src/subscription_client/subscription_client_exception.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 /// Provides a websocket based connection to Solana.
 class SubscriptionClient {
-  SubscriptionClient(Uri uri) {
-    final channel = WebSocketChannel.connect(uri);
+  SubscriptionClient(
+    Uri uri, {
+    Duration? pingInterval,
+    Duration? connectTimeout,
+  }) {
+    final channel = IOWebSocketChannel.connect(
+      uri,
+      pingInterval: pingInterval,
+      connectTimeout: connectTimeout,
+    );
     _sink = channel.sink;
     _stream = channel.stream.asBroadcastStream();
   }
@@ -114,7 +123,7 @@ class SubscriptionClient {
           <String, String>{
             'encoding': encoding.value,
           },
-          if (filters != null) ...filters,
+          ...?filters,
           if (commitment != null)
             <String, String>{
               'commitment': commitment.value,
@@ -197,9 +206,7 @@ class SubscriptionClient {
       int? subscriptionId;
       final requestId = _requestId++;
 
-      late final StreamSubscription<dynamic> subscription;
-
-      subscription = _stream.listen(
+      final StreamSubscription<dynamic> subscription = _stream.listen(
         (dynamic event) {
           final message = _parse(event);
           if (message is SubscribedMessage) {
@@ -246,11 +253,11 @@ class SubscriptionClient {
       final parsed = json.decode(event) as Map<String, dynamic>;
 
       return SubscriptionMessage.fromJson(parsed);
-    } else {
-      throw FormatException(
-        'unexpected type received through the websocket ${event.runtimeType}',
-      );
     }
+
+    throw FormatException(
+      'unexpected type received through the websocket ${event.runtimeType}',
+    );
   }
 
   void _sendRequest(

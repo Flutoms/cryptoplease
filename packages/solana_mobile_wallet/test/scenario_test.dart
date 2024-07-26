@@ -10,7 +10,7 @@ import 'package:solana_mobile_wallet/src/api.dart';
 import 'scenario_test.mocks.dart';
 
 @GenerateMocks([ScenarioCallbacks, Scenario])
-Future<void> main() async {
+void main() {
   late MockScenarioCallbacks callbacks;
   late Uint8List publicKey;
 
@@ -139,18 +139,18 @@ Future<void> main() async {
     verifyNoMoreInteractions(callbacks);
   });
 
-  test('Scenario ready', () async {
+  test('Scenario ready', () {
     final id = createAndRegisterScenario();
 
-    when(callbacks.onScenarioReady()).thenAnswer((_) {});
+    when(callbacks.onScenarioReady(any)).thenAnswer((_) {});
 
     Api.instance.onScenarioReady(id);
 
-    verify(callbacks.onScenarioReady()).called(1);
+    verify(callbacks.onScenarioReady(any)).called(1);
     verifyNoMoreInteractions(callbacks);
   });
 
-  test('Scenario complete', () async {
+  test('Scenario complete', () {
     final id = createAndRegisterScenario();
 
     when(callbacks.onScenarioComplete()).thenAnswer((_) {});
@@ -161,7 +161,7 @@ Future<void> main() async {
     verifyNoMoreInteractions(callbacks);
   });
 
-  test('Scenario error', () async {
+  test('Scenario error', () {
     final id = createAndRegisterScenario();
 
     when(callbacks.onScenarioError()).thenAnswer((_) {});
@@ -172,7 +172,7 @@ Future<void> main() async {
     verifyNoMoreInteractions(callbacks);
   });
 
-  test('Scenario serving clients', () async {
+  test('Scenario serving clients', () {
     final id = createAndRegisterScenario();
 
     when(callbacks.onScenarioServingClients()).thenAnswer((_) {});
@@ -183,7 +183,7 @@ Future<void> main() async {
     verifyNoMoreInteractions(callbacks);
   });
 
-  test('Scenario serving complete', () async {
+  test('Scenario serving complete', () {
     final id = createAndRegisterScenario();
 
     when(callbacks.onScenarioServingComplete()).thenAnswer((_) {});
@@ -194,7 +194,7 @@ Future<void> main() async {
     verifyNoMoreInteractions(callbacks);
   });
 
-  test('Scenario teardown complete', () async {
+  test('Scenario teardown complete', () {
     final id = createAndRegisterScenario();
 
     when(callbacks.onScenarioTeardownComplete()).thenAnswer((_) {});
@@ -204,10 +204,40 @@ Future<void> main() async {
     verify(callbacks.onScenarioTeardownComplete()).called(1);
     verifyNoMoreInteractions(callbacks);
   });
+
+  test('On low power and no connection', () {
+    final id = createAndRegisterScenario();
+
+    when(callbacks.onLowPowerAndNoConnection()).thenAnswer((_) {});
+
+    Api.instance.onLowPowerAndNoConnection(id);
+
+    verify(callbacks.onLowPowerAndNoConnection()).called(1);
+    verifyNoMoreInteractions(callbacks);
+  });
+
+  test('Deauthorize', () async {
+    final id = createAndRegisterScenario();
+
+    final deauthorizeDto = DeauthorizeEventDto(
+      identityName: '',
+      identityUri: '',
+      iconRelativeUri: '',
+      cluster: 'testnet',
+      authorizationScope: Uint8List(32),
+    );
+
+    when(callbacks.onDeauthorizeEvent(any)).thenAnswer((_) async => true);
+
+    await Api.instance.deauthorize(deauthorizeDto, id);
+
+    verify(callbacks.onDeauthorizeEvent(any)).called(1);
+    verifyNoMoreInteractions(callbacks);
+  });
 }
 
 class ScenarioTest implements Scenario {
-  ScenarioTest({
+  const ScenarioTest({
     required this.associationPublicKey,
     required this.callbacks,
     required this.id,

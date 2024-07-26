@@ -7,10 +7,10 @@ import 'package:wallet_example/presentation/snack_bar.dart';
 
 class AccountList extends StatelessWidget {
   const AccountList({
-    Key? key,
+    super.key,
     required this.authToken,
     required this.accounts,
-  }) : super(key: key);
+  });
 
   final AuthToken authToken;
   final List<Account> accounts;
@@ -29,10 +29,10 @@ class AccountList extends StatelessWidget {
 
 class AccountItem extends StatefulWidget {
   const AccountItem({
-    Key? key,
+    super.key,
     required this.account,
     required this.authToken,
-  }) : super(key: key);
+  });
 
   final Account account;
   final AuthToken authToken;
@@ -42,7 +42,7 @@ class AccountItem extends StatefulWidget {
 }
 
 class _AccountItemState extends State<AccountItem> {
-  void _onEditAccount() {
+  void _handleEditAccount() {
     showDialog<void>(
       context: context,
       builder: (context) => AccountEdit(
@@ -52,14 +52,14 @@ class _AccountItemState extends State<AccountItem> {
     );
   }
 
-  void _onSignTransaction() {
+  void _handleSignTransaction() {
     context
         .read<SeedVaultBloc>()
         .signTransactionWithAccount(widget.authToken, widget.account)
         .then((it) => showSnackBar(context, it));
   }
 
-  void _onSignMessage() {
+  void _handleSignMessage() {
     context
         .read<SeedVaultBloc>()
         .signMessageWithAccount(widget.authToken, widget.account)
@@ -84,7 +84,7 @@ class _AccountItemState extends State<AccountItem> {
                     ),
                   ),
                   IconButton(
-                    onPressed: _onEditAccount,
+                    onPressed: _handleEditAccount,
                     icon: const Icon(Icons.edit),
                   ),
                 ],
@@ -98,7 +98,7 @@ class _AccountItemState extends State<AccountItem> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Path: ${widget.account.derivationPath.toString()}',
+                'Path: ${widget.account.derivationPath}',
                 style: _style,
               ),
               const SizedBox(height: 8),
@@ -107,15 +107,15 @@ class _AccountItemState extends State<AccountItem> {
                 children: [
                   const Text('Sign a: ', style: _style),
                   ElevatedButton(
-                    onPressed: _onSignTransaction,
+                    onPressed: _handleSignTransaction,
                     child: const Text('Transaction', style: _style),
                   ),
                   ElevatedButton(
-                    onPressed: _onSignMessage,
+                    onPressed: _handleSignMessage,
                     child: const Text('Message', style: _style),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

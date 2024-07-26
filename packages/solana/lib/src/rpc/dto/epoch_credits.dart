@@ -1,4 +1,3 @@
-// ignore_for_file: prefer-first
 class EpochCredits {
   const EpochCredits({
     required this.epoch,
@@ -30,4 +29,6 @@ class EpochCredits {
   final int epoch;
   final int credits;
   final int previousCredits;
+
+  List<int> toJson() => [epoch, credits, previousCredits];
 }

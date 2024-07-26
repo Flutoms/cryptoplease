@@ -1,4 +1,4 @@
-// ignore_for_file: prefer-first
+// ignore_for_file: avoid-unnecessary-late
 
 import 'package:solana/dto.dart';
 import 'package:solana/solana.dart';
@@ -57,7 +57,7 @@ void main() {
       source: source,
       commitment: Commitment.confirmed,
     );
-    expect(signature, isNotNull);
+    expect(signature, isNotEmpty);
     expect(
       await solanaClient.rpcClient
           .getBalance(destination.address, commitment: Commitment.confirmed)
@@ -76,11 +76,11 @@ void main() {
       source: source,
       commitment: Commitment.confirmed,
     );
-    expect(signature, isNotNull);
+    expect(signature, isNotEmpty);
 
     // FIXME: check that it actual is this type
     final result = await solanaClient.rpcClient.getTransaction(
-      signature.toString(),
+      signature,
       encoding: Encoding.jsonParsed,
       commitment: Commitment.confirmed,
     );
@@ -89,9 +89,8 @@ void main() {
     expect(result?.transaction, isNotNull);
     // ignore: avoid-non-null-assertion, cannot be null here
     final transaction = result!.transaction as ParsedTransaction;
-    expect(transaction.message, isNotNull);
     final txMessage = transaction.message;
-    expect(txMessage.instructions, isNotNull);
+    expect(txMessage.instructions, isNotEmpty);
     final instructions = txMessage.instructions;
     expect(instructions.length, equals(2));
     expect(instructions.first, const TypeMatcher<ParsedInstructionSystem>());
@@ -128,7 +127,7 @@ void main() {
       address: wallet.publicKey,
       commitment: Commitment.confirmed,
     );
-    expect(signature, isNotNull);
+    expect(signature, isNotEmpty);
     expect(
       await solanaClient.rpcClient
           .getBalance(wallet.address, commitment: Commitment.confirmed)
@@ -191,7 +190,7 @@ void main() {
       owner: source,
       commitment: Commitment.confirmed,
     );
-    expect(signature, isNotNull);
+    expect(signature, isNotEmpty);
 
     final tokenBalance = await solanaClient.getTokenBalance(
       mint: token.address,
@@ -222,11 +221,11 @@ void main() {
         owner: source,
         commitment: Commitment.confirmed,
       );
-      expect(signature, isNotNull);
+      expect(signature, isNotEmpty);
 
       // FIXME: check that this is of the correct type
       final result = await solanaClient.rpcClient.getTransaction(
-        signature.toString(),
+        signature,
         encoding: Encoding.jsonParsed,
         commitment: Commitment.confirmed,
       );
@@ -235,9 +234,8 @@ void main() {
       expect(result?.transaction, isNotNull);
       // ignore: avoid-non-null-assertion, cannot be null here
       final transaction = result!.transaction as ParsedTransaction;
-      expect(transaction.message, isNotNull);
       final txMessage = transaction.message;
-      expect(txMessage.instructions, isNotNull);
+      expect(txMessage.instructions, isNotEmpty);
       final instructions = txMessage.instructions;
       expect(instructions.length, equals(2));
       expect(instructions[0], const TypeMatcher<ParsedInstructionSplToken>());
